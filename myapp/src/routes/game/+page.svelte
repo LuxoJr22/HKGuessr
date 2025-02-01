@@ -87,7 +87,7 @@
 	playa = document.getElementById("playa_text"),
 	line = document.getElementById("line"),
 	box = document.getElementById("box"),
-	rect = zoom?.getBoundingClientRect();
+	rect = zoom.getBoundingClientRect();
 
 	function get_rect()
 	{
