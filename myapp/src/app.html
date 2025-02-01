@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>HK Guessr</title>
+		<link rel="icon" href="%sveltekit.assets%/map_quill.webp" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%sveltekit.head%
+	</head>
+	<style>
+		@font-face {
+			font-family: "Trajan";
+			src: url(../../Trajan_Bold.ttf);
+		}
+
+		* {
+			padding: 0;
+			margin: 0;
+			outline: 0;
+			overflow: hidden;
+		}
+		html, body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			overflow: hidden;
+		}
+	</style>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
