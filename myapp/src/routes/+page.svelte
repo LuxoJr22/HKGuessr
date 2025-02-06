@@ -3,12 +3,12 @@
 </video>
 <div class="ui">
 	<div class="title">
-		<img src="/guessr.png">
+		<img src="/guessr.png" alt="title">
 	</div>
 	<div class="selection">
-		<img src="/assets/sel.png">
+		<img src="/assets/sel.png" alt="Play btn">
 		<a class="btn text" id="launch" href="/game">Play</a>
-		<img src="/assets/seli.png">
+		<img src="/assets/seli.png" alt="Play btn">
 	</div>
 </div>
 

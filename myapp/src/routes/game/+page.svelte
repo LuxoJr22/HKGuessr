@@ -1,5 +1,5 @@
 <div class="feature_image" id="place">
-	<img id="point">
+	<img id="point" alt="location">
   </div>
   <div class="top_ui" id="top">
 	<span class="text" id="Score">Score: 0</span>
@@ -10,10 +10,10 @@
 	<div class="map_ui" id ="map">
 		<div class="zoom_outer" id="mapping">
 			<div id="tag" hidden>
-				<img src="/assets/knight.png">
+				<img src="/assets/knight.png" alt="knight">
 			</div>
 			<div id="tagpoint" hidden>
-				<img src="/Wayward_Compass.webp">
+				<img src="/Wayward_Compass.webp" alt="compass">
 			</div>
 			<svg height="100%" width="100%" id="box">
 				<line x1="0" y1="0" x2="400" y2="200" stroke-dasharray="4" id="line" />
@@ -25,29 +25,30 @@
 	</div>
 	<div class="mybutton">
 		<div class="guessimgs" id="guess_text">
-			<img src="/assets/guessbtnl.png">
-			<img src="/assets/guessbtn.png" class="img-top" id="btn">
+			<img src="/assets/guessbtnl.png" alt="guess btn">
+			<img src="/assets/guessbtn.png" alt="guess btn" class="img-top" id="btn">
 		</div>
 	</div>
   </div>
   <div class="bot_ui" id="bot">
 	<span class="text" id="Act_score">Score: 0</span>
 	<div class="nextimgs" id="next_text">
-		<img src="/assets/Nextl.png">
-		<img src="/assets/Next.png" class="img-top" id="next">
+		<img src="/assets/Nextl.png" alt="Next btn">
+		<img src="/assets/Next.png" alt="Next btn" class="img-top" id="next">
 	</div>
 	<div class="nextimgs" id="playa_text">
-		<img src="/assets/playal.png">
-		<img src="/assets/playa.png" class="img-top" id="playa">
+		<img src="/assets/playal.png" alt="Play again btn">
+		<img src="/assets/playa.png" alt="Play again btn" class="img-top" id="playa">
 	</div>
 	<span class="text" id="Act_round">Round : 1/5</span>
   </div>
-<script src="game.js">
+<script lang="ts">
     import { onMount } from "svelte";
 	onMount(() => { (async () => {
-	var scale = 1,
-	totalSeconds,
-	panning = false,
+	var scale = 1
+	var totalSeconds : number
+	var chrono : number
+	var panning = false,
 	pointX = 0,
 	pointY = 0,
 	start = { x: 0, y: 0 },
@@ -59,21 +60,23 @@
 	score = 0,
 	Round = 1,
 	scene = 0,
-	gamepoints = [],
-	mappoints = [],
-	maptags = [],
-	tags = [],
-	points = [],
-	lines = [],
-	totalsec = 0,
-	chrono,
-	bot = document.getElementById("guess"),
+	totalsec = 0
+	var gamepoints : number[] = []
+	var tags : HTMLElement[] = []
+	var points : HTMLElement[] = []
+	var lines : HTMLElement[] = []
+	var mappoints : {x : number, y : number}[] = []
+	var maptags : {x : number, y : number}[] = []
+	
+	
+	
+	var bot = document.getElementById("guess"),
 	bott = document.getElementById("bot"),
 	map = document.getElementById("map"),
 	act_score = document.getElementById("Act_score"),
 	act_round = document.getElementById("Act_round"),
 	zoom = document.getElementById("zoom"),
-	locate = document.getElementById("point"),
+	locate = document.getElementById("point") as HTMLImageElement,
 	taupe = document.getElementById("top"),
 	tag = document.getElementById("tag"),
 	tagpo = document.getElementById("tagpoint"),
@@ -87,7 +90,9 @@
 	playa = document.getElementById("playa_text"),
 	line = document.getElementById("line"),
 	box = document.getElementById("box"),
-	rect = zoom.getBoundingClientRect();
+	rect = zoom!.getBoundingClientRect();
+
+	console.log("uoi")
 
 	function get_rect()
 	{
@@ -96,8 +101,8 @@
 		start = { x: 0, y: 0 };
 		pos = {x: 0, y: 0};
 		scale = 1;
-		zoom.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-		rect = zoom.getBoundingClientRect();
+		zoom!.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+		rect = zoom!.getBoundingClientRect();
 	}
 
 
@@ -117,32 +122,32 @@
 				}
 				gamepoints.push(o);
 				var p = json.maps[o];
-				locate.src = p.link;
+				locate!.src = p.link;
 				pospoint = p.coords});
-		scoretxt.innerHTML = "Score : " + score;
-		round.innerHTML = "Round : " + Round + "/5";
+		scoretxt!.innerHTML = "Score : " + score;
+		round!.innerHTML = "Round : " + Round + "/5";
 	}
 
 	function reloadmap()
 	{
 		loadmap();
-		bot.style.right = 20 + "px";
-		bot.style.top = "";
-		bot.style.bottom = 80 + "px";
-		map.style.opacity = 0.5;
-		map.style.height = "auto";
-		map.style.width = 600 + "px";
+		bot!.style.right = 20 + "px";
+		bot!.style.top = "";
+		bot!.style.bottom = 80 + "px";
+		map!.style.opacity = "0.5";
+		map!.style.height = "auto";
+		map!.style.width = 600 + "px";
 		tagpos.x = 0;
 		tagpos.y = 0;
-		tag.style.left = tagpos.x + "px";
-		tag.style.top = tagpos.y + "px";
+		tag!.style.left = tagpos.x + "px";
+		tag!.style.top = tagpos.y + "px";
 		setTransform()
-		tag.hidden = true;
-		tagpo.hidden = true;
-		taupe.style.display = "flex";
-		guess_imgs.style.display = "flex";
-		bott.style.display = "none";
-		box.style.display = "none"
+		tag!.hidden = true;
+		tagpo!.hidden = true;
+		taupe!.style.display = "flex";
+		guess_imgs!.style.display = "flex";
+		bott!.style.display = "none";
+		box!.style.display = "none"
 		get_rect();
 	}
 
@@ -150,24 +155,24 @@
 	{
 		totalsec += 300 - totalSeconds;
 		scene = 1;
-		bot.style.right = 0 + "px";
-		bot.style.top = 0 + "px";
-		map.style.opacity = 1;
-		map.style.height = 90 + "%";
-		map.style.width = "auto";
+		bot!.style.right = 0 + "px";
+		bot!.style.top = 0 + "px";
+		map!.style.opacity = "1";
+		map!.style.height = 90 + "%";
+		map!.style.width = "auto";
 		get_rect();
 		tagpos.x *= ((rect.right - rect.left) / 600);
 		tagpos.y *= ((rect.bottom - rect.top) / 390.96875);
-		tag.style.left = tagpos.x + "px";
-		tag.style.top = tagpos.y + "px";
-		tag.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
-		tagpo.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
+		tag!.style.left = tagpos.x + "px";
+		tag!.style.top = tagpos.y + "px";
+		tag!.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
+		tagpo!.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
 		tagpoint.x = pospoint.x * ((rect.right - rect.left) / 600);
 		tagpoint.y = pospoint.y * ((rect.bottom - rect.top) / 390.96875);
-		tagpo.style.left = tagpoint.x + "px";
-		tagpo.style.top = tagpoint.y + "px";
-		tagpo.hidden = false;
-		locate.src = "";
+		tagpo!.style.left = tagpoint.x + "px";
+		tagpo!.style.top = tagpoint.y + "px";
+		tagpo!.hidden = false;
+		locate!.src = "";
 		maptags.push({x: tagpos.x, y: tagpos.y});
 		mappoints.push({x: tagpoint.x, y: tagpoint.y});
 		if (tagpos.x == 0 && tagpos.y == 0)
@@ -179,10 +184,10 @@
 		pointX = (rect.right - rect.left) / 2 - mid.x;
 		pointY = (rect.bottom - rect.top) / 2 - mid.y - 225;
 		setTransform();
-		box.style.display = "block"
-		taupe.style.display = "none";
-		guess_imgs.style.display = "none";
-		bott.style.display = "flex";
+		box!.style.display = "block"
+		taupe!.style.display = "none";
+		guess_imgs!.style.display = "none";
+		bott!.style.display = "flex";
 		clearInterval(chrono);
 		
 	}
@@ -197,21 +202,21 @@
 		console.log(maptags);
 		while (i < 4)
 		{
-			lines.push(line.cloneNode(true));
-			tags.push(tag.cloneNode(true));
+			lines.push(line!.cloneNode(true));
+			tags.push(tag!.cloneNode(true));
 			tags[i].style.left = maptags[i].x + "px";
 			tags[i].style.top = maptags[i].y + "px";
-			document.getElementById("mapping").appendChild(tags[i]);
-			points.push(tagpo.cloneNode(true))
+			document.getElementById("mapping")!.appendChild(tags[i]);
+			points.push(tagpo!.cloneNode(true))
 			points[i].style.left = mappoints[i].x + "px";
 			points[i].style.top = mappoints[i].y + "px";
-			document.getElementById("mapping").appendChild(points[i]);
-			lines[i].setAttribute('x1', maptags[i].x);
+			document.getElementById("mapping")!.appendChild(points[i]);
+			lines[i].setAttribute('x1', maptags[i].x.toString());
 			
-			lines[i].setAttribute('y1', maptags[i].y);
-			lines[i].setAttribute('x2', mappoints[i].x);
-			lines[i].setAttribute('y2', mappoints[i].y);
-			document.getElementById("box").appendChild(lines[i]);
+			lines[i].setAttribute('y1', maptags[i].y.toString());
+			lines[i].setAttribute('x2', mappoints[i].x.toString());
+			lines[i].setAttribute('y2', mappoints[i].y.toString());
+			document.getElementById("box")!.appendChild(lines[i]);
 			if (maptags[i].x == 0 && maptags[i].y == 0)
 			{
 				tags[i].hidden = true;
@@ -222,36 +227,36 @@
 			i ++;
 		}
 		setTransform();
-		act_score.innerHTML = "Score : " + score;
+		act_score!.innerHTML = "Score : " + score;
 		let seconds = totalsec % 60;
 		let secondsTens = Math.floor(seconds / 10);
 		let secondsOnes = seconds % 10;
 		let minutes = Math.floor(totalsec / 60);
-		act_round.innerHTML = "" + minutes + ":" + secondsTens + secondsOnes;
-		next.style.display = "none";
-		playa.style.display = "inline-block";
+		act_round!.innerHTML = "" + minutes + ":" + secondsTens + secondsOnes;
+		next!.style.display = "none";
+		playa!.style.display = "inline-block";
 	}
 
 	loadmap();
 
-	place.style.maxHeight = window.innerHeight + "px";
+	place!.style.maxHeight = window.innerHeight + "px";
 
 	window.onresize = function(event) {
-		place.style.maxHeight = window.innerHeight + "px";
-		place.style.maxWidth = window.innerWidth + "px";
-		rect = zoom.getBoundingClientRect();
+		place!.style.maxHeight = window.innerHeight + "px";
+		place!.style.maxWidth = window.innerWidth + "px";
+		rect = zoom!.getBoundingClientRect();
 	}
 
 	function setTransform() {
-		zoom.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+		zoom!.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
 		var p = {x: pointX + tagpos.x * (scale - 1), y: pointY + tagpos.y * (scale - 1)}
-		line.setAttribute('x1', tagpos.x + p.x);
-		line.setAttribute('y1', tagpos.y + p.y);
-		tag.style.transform = "translate(" + p.x + "px, " + p.y + "px)";
+		line!.setAttribute('x1', (tagpos.x + p.x).toString());
+		line!.setAttribute('y1', (tagpos.y + p.y).toString());
+		tag!.style.transform = "translate(" + p.x + "px, " + p.y + "px)";
 		p = {x: pointX + tagpoint.x * (scale - 1), y: pointY + tagpoint.y * (scale - 1)}
-		tagpo.style.transform = "translate(" + p.x + "px, " + p.y + "px)";
-		line.setAttribute('x2', tagpoint.x + p.x);
-		line.setAttribute('y2', tagpoint.y + p.y);
+		tagpo!.style.transform = "translate(" + p.x + "px, " + p.y + "px)";
+		line!.setAttribute('x2', (tagpoint.x + p.x).toString());
+		line!.setAttribute('y2', (tagpoint.y + p.y).toString());
 		if (scene == 2)
 		{
 			let i = 0;
@@ -259,12 +264,12 @@
 			{
 				p = {x: pointX + maptags[i].x * (scale - 1), y: pointY + maptags[i].y * (scale - 1)};
 				tags[i].style.transform = "translate(" + p.x + "px, " + p.y + "px)";
-				lines[i].setAttribute('x1', maptags[i].x + p.x);
-				lines[i].setAttribute('y1', maptags[i].y + p.y);
+				lines[i].setAttribute('x1', (maptags[i].x + p.x).toString());
+				lines[i].setAttribute('y1', (maptags[i].y + p.y).toString());
 				p = {x: pointX + mappoints[i].x * (scale - 1), y: pointY + mappoints[i].y * (scale - 1)};
 				points[i].style.transform = "translate(" + p.x + "px, " + p.y + "px)";
-				lines[i].setAttribute('x2', mappoints[i].x + p.x);
-				lines[i].setAttribute('y2', mappoints[i].y + p.y);
+				lines[i].setAttribute('x2', (mappoints[i].x + p.x).toString());
+				lines[i].setAttribute('y2', (mappoints[i].y + p.y).toString());
 				i ++;
 			}
 		}
@@ -278,7 +283,7 @@
 		let secondsTens = Math.floor(seconds / 10);
 		let secondsOnes = seconds % 10;
 		let minutes = Math.floor(totalSeconds / 60);
-		timer.innerHTML = "" + minutes + ":" + secondsTens + secondsOnes;
+		timer!.innerHTML = "" + minutes + ":" + secondsTens + secondsOnes;
 	}
 
 	function Timer_Tick() {
@@ -290,7 +295,7 @@
 			let secondsOnes = seconds % 10;
 			let minutes = Math.floor(totalSeconds / 60);
 
-			timer.innerHTML = "" + minutes + ":" + secondsTens + secondsOnes;
+			timer!.innerHTML = "" + minutes + ":" + secondsTens + secondsOnes;
 		}
 		else
 		{
@@ -299,12 +304,12 @@
 	}
 
 
-	zoom.onmouseleave = function(e)
+	zoom!.onmouseleave = function(e)
 	{
 		panning = false;
 	}
 
-	button.onmousedown = function(e)
+	button!.onmousedown = function(e)
 	{
 		let scoring
 		if (tagpos.x > pospoint.x - 5 && tagpos.x < pospoint.x + 5 && tagpos.y > pospoint.y - 5 && tagpos.y < pospoint.y + 5)
@@ -316,15 +321,15 @@
 				dist = 1000;
 			scoring = Math.round(1000 - dist);
 		}
-		act_score.innerHTML = "Score : " + scoring;
-		act_round.innerHTML = "Round : " + Round + "/5";
+		act_score!.innerHTML = "Score : " + scoring;
+		act_round!.innerHTML = "Round : " + Round + "/5";
 		score += scoring;
 		Round ++;
 		console.log(tagpos);
 		guess_scene();
 	}
 
-	zoom.onmousedown = function (e) {
+	zoom!.onmousedown = function (e) {
 		e.preventDefault();
 		pos.x = (e.clientX - rect.left);
 		pos.y = (e.clientY - rect.top);
@@ -334,27 +339,27 @@
 		panning = true;
 	}
 
-	zoom.onmouseup = function (e) {
+	zoom!.onmouseup = function (e) {
 		panning = false;
 		pos.x = (e.clientX - rect.left);
 		pos.y = (e.clientY - rect.top);
 		
 		if (point.y == pos.y && point.x == pos.x && scene == 0)
 		{
-			tag.hidden = false;
+			tag!.hidden = false;
 			tagpos.x = (pos.x - pointX) / scale;
 			tagpos.y = (pos.y - pointY) / scale;
-			tag.style.left = tagpos.x + "px";
-			tag.style.top = tagpos.y + "px";
+			tag!.style.left = tagpos.x + "px";
+			tag!.style.top = tagpos.y + "px";
 			setTransform();
 		}
 	}
 
-	playa.onmousedown = function (e) {
+	playa!.onmousedown = function (e) {
 		document.location.reload();
 	}
 
-	next.onmousedown = function (e) {
+	next!.onmousedown = function (e) {
 		if (Round < 6)
 			reloadmap();
 		else
@@ -362,7 +367,7 @@
 			
 	}
 
-	zoom.onmousemove = function (e) {
+	zoom!.onmousemove = function (e) {
 		e.preventDefault();
 		if (!panning) {
 		return;
@@ -374,7 +379,7 @@
 		setTransform();
 	}
 
-	zoom.onwheel = function (e) {
+	zoom!.onwheel = function (e) {
 		e.preventDefault();
 		pos.x = (e.clientX - rect.left);
 		pos.y = (e.clientY - rect.top);
