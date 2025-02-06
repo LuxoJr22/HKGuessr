@@ -202,7 +202,7 @@
 		console.log(maptags);
 		while (i < 4)
 		{
-			lines.push(line!.cloneNode(true));
+			lines.push(line.cloneNode(true));
 			tags.push(tag!.cloneNode(true));
 			tags[i].style.left = maptags[i].x + "px";
 			tags[i].style.top = maptags[i].y + "px";
