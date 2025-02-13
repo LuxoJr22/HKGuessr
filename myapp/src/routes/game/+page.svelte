@@ -1,12 +1,28 @@
 <div class="feature_image" id="place">
 	<img id="point" alt="location">
 </div>
-  <div class="top_ui" id="top">
+<div class="top_ui" id="top">
 	<span class="text" id="Score">Score: 0</span>
 	<span class="text" id="Timer">TIMER</span>
 	<span class="text" id="round">Round : 0/5</span>
-  </div>
-  <div class="guess_ui" id="guess">
+</div>
+<div class="guess_ui" id="guess">
+	<div class="icons" id="maps_btns">	
+		<div class="select" id="select_hud">
+			<div class="select_line"></div>
+			<div class="select_back"></div>
+			<div class="select_line"></div>
+		</div>
+		<div class="icon" id="Hallowseal">
+			<img src="/assets/hallowseal.png" alt="hallowseal">
+		</div>
+		<div class="icon" id="Godmaster">
+			<img src="/assets/godmaster.png" alt="godmaster">
+		</div>
+		<div class="icon" id="King_brand">
+			<img src="/assets/Kings_Brand_inventory.webp" alt="king">
+		</div>
+	</div>
 	<div class="map_ui" id ="map">
 		<div class="zoom_outer" id="mapping">
 			<div id="tag" hidden>
@@ -31,8 +47,8 @@
 			<img src="/assets/guessbtn.png" alt="guess btn" class="img-top" id="btn">
 		</div>
 	</div>
-  </div>
-  <div class="bot_ui" id="bot">
+</div>
+<div class="bot_ui" id="bot">
 	<span class="text" id="Act_score">Score: 0</span>
 	<div class="nextimgs" id="next_text">
 		<img src="/assets/Nextl.png" alt="Next btn">
@@ -43,7 +59,8 @@
 		<img src="/assets/playa.png" alt="Play again btn" class="img-top" id="playa">
 	</div>
 	<span class="text" id="Act_round">Round : 1/5</span>
-  </div>
+</div>
+
 <script lang="ts">
     import { onMount } from "svelte";
 	onMount(() => { (async () => {
@@ -69,6 +86,9 @@
 	var lines : HTMLElement[] = []
 	var mappoints : {x : number, y : number}[] = []
 	var maptags : {x : number, y : number}[] = []
+	var act_map = "Hallownest"
+	var pos_map = ""
+	var maps : string[] = []
 	
 	
 	
@@ -92,12 +112,15 @@
 	playa = document.getElementById("playa_text"),
 	line = document.getElementById("line"),
 	box = document.getElementById("box"),
+	map_btns = document.getElementById("maps_btns"),
 	h_map = document.getElementById("Hallownest"),
 	w_map = document.getElementById("White_Palace"),
-	g_map = document.getElementById("Godhome")
+	g_map = document.getElementById("Godhome"),
+	h_icon = document.getElementById("Hallowseal"),
+	k_icon = document.getElementById("King_brand"),
+	g_icon = document.getElementById("Godmaster"),
+	select = document.getElementById("select_hud")
 	var rect = zoom!.getBoundingClientRect();
-
-	console.log(rect)
 
 
 	function get_rect()
@@ -128,16 +151,22 @@
 				}
 				gamepoints.push(o);
 				var p = json.maps[o];
+				//locate!.src = "/assets/point/wp1.png";
 				locate!.src = p.link;
-				pospoint = p.coords});
+				pospoint = p.coords;
+				pos_map = p.map});
 		scoretxt!.innerHTML = "Score : " + score;
 		round!.innerHTML = "Round : " + Round + "/5";
-		get_rect();
 	}
 
 	function reloadmap()
 	{
+		act_map = "Hallownest";
+		show_map(act_map)
+		select!.style.left = "0px";
 		loadmap();
+		map_btns!.style.display = "flex";
+		map!.style.backgroundColor =  "white";
 		bot!.style.right = 20 + "px";
 		bot!.style.top = "";
 		bot!.style.bottom = 80 + "px";
@@ -160,8 +189,15 @@
 
 	function guess_scene()
 	{
+		if (pos_map != act_map)
+		{
+			tag!.hidden = true;
+			tagpos = {x: 0, y: 0};
+		}
 		totalsec += 300 - totalSeconds;
 		scene = 1;
+		map!.style.backgroundColor =  "black";
+		map_btns!.style.display = "none";
 		bot!.style.right = 0 + "px";
 		bot!.style.top = 0 + "px";
 		map!.style.opacity = "1";
@@ -169,19 +205,22 @@
 		map!.style.width = "auto";
 		get_rect();
 		tagpos.x *= ((rect.right - rect.left) / 600);
-		tagpos.y *= ((rect.bottom - rect.top) / 390.96875);
+		tagpos.y *= ((rect.bottom - rect.top) / 375);
 		tag!.style.left = tagpos.x + "px";
 		tag!.style.top = tagpos.y + "px";
 		tag!.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
 		tagpo!.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
 		tagpoint.x = pospoint.x * ((rect.right - rect.left) / 600);
-		tagpoint.y = pospoint.y * ((rect.bottom - rect.top) / 390.96875);
+		tagpoint.y = pospoint.y * ((rect.bottom - rect.top) / 375);
 		tagpo!.style.left = tagpoint.x + "px";
 		tagpo!.style.top = tagpoint.y + "px";
 		tagpo!.hidden = false;
+		show_map(pos_map);
+		//locate.hidden = true;
 		locate!.src = "";
 		maptags.push({x: tagpos.x, y: tagpos.y});
 		mappoints.push({x: tagpoint.x, y: tagpoint.y});
+		maps.push(pos_map);
 		if (tagpos.x == 0 && tagpos.y == 0)
 		{
 			tagpos.x = tagpoint.x;
@@ -198,6 +237,32 @@
 		clearInterval(chrono);
 		
 	}
+
+	function change_map(name : string)
+	{
+		get_rect();
+		tag!.hidden = true;
+		tagpos = {x: 0, y: 0};
+		act_map = name;
+		show_map(name)
+	}
+
+	function show_map(name : string)
+	{
+		h_map!.hidden = true;
+		w_map!.hidden = true;
+		g_map!.hidden = true;
+		if (name == "Hallownest")
+			h_map!.hidden = false;
+		if (name == "Godhome")
+			g_map!.hidden = false;
+		if (name == "White_palace")
+			w_map!.hidden = false;
+	}
+
+	k_icon!.onmousedown = function (e) { change_map("White_palace"); select!.style.left = "136px";}
+	h_icon!.onmousedown = function (e) { change_map("Hallownest"); select!.style.left = "0px";}
+	g_icon!.onmousedown = function (e) { change_map("Godhome"); select!.style.left = "68px";}
 
 	function end_scene()
 	{
@@ -224,9 +289,15 @@
 			lines[i].setAttribute('x2', mappoints[i].x.toString());
 			lines[i].setAttribute('y2', mappoints[i].y.toString());
 			document.getElementById("box")!.appendChild(lines[i]);
-			if (maptags[i].x == 0 && maptags[i].y == 0)
+			if (maptags[i].x == 0 && maptags[i].y )
 			{
 				tags[i].hidden = true;
+				lines[i].style.display = "none";
+			}
+			else if (maps[i] != "Hallownest")
+			{
+				tags[i].hidden = true;
+				points[i].hidden = true;
 				lines[i].style.display = "none";
 			}
 			else
@@ -248,6 +319,7 @@
 
 	place!.style.maxHeight = window.innerHeight + "px";
 	place!.style.maxWidth = window.innerWidth + "px";
+	rect = zoom!.getBoundingClientRect();
 
 	window.onresize = function(event) {
 		place!.style.maxHeight = window.innerHeight + "px";
@@ -333,7 +405,6 @@
 		act_round!.innerHTML = "Round : " + Round + "/5";
 		score += scoring;
 		Round ++;
-		console.log(tagpos);
 		guess_scene();
 	}
 
@@ -357,6 +428,7 @@
 			tag!.hidden = false;
 			tagpos.x = (pos.x - pointX) / scale;
 			tagpos.y = (pos.y - pointY) / scale;
+			console.log(tagpos)
 			tag!.style.left = tagpos.x + "px";
 			tag!.style.top = tagpos.y + "px";
 			setTransform();
@@ -565,7 +637,7 @@ div#zoom > img {
 
 .guess_ui {
 	position: absolute;
-	bottom: 80px;
+	bottom: 20px;
 	right: 20px;
 }
 
@@ -592,6 +664,44 @@ div#zoom > img {
 	background-color: rgb(0, 0, 0);
 	width: auto;
 	height: auto;
+}
+
+.icon {
+	width: 10%;
+	height: auto;
+	display: flex;
+	align-items: center;
+	z-index: 2;
+}
+
+.icon img{
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.select {
+	position: absolute;
+	display: flex;
+}
+
+.select_back {
+	height: 68px;
+    background-color: #484848;
+    width: 66px;
+    margin: auto 0;
+	mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+}
+.select_line {
+	height: 68px;
+    background-color: #E6E6E6;
+    width: 1px;
+    margin: auto 0;
+	mask-image: linear-gradient(to bottom, transparent, black 45%, black 55%, transparent);
+}
+
+.icons {
+	z-index: 2;
+	display: flex;
 }
 
 .map_ui:hover {
