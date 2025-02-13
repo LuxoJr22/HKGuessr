@@ -19,7 +19,9 @@
 				<line x1="0" y1="0" x2="400" y2="200" stroke-dasharray="4" id="line" />
 			</svg>
 			<div id="zoom">
-				<img src="/assets/map.png" alt="zoom">
+				<img src="/assets/map.png" alt="zoom" id="Hallownest">
+				<img src="/assets/Godhome_Mapa.webp" alt="zoom" id="Godhome" hidden>
+				<img src="/assets/White_Palace_Map_Clean.png" alt="zoom" id="White_Palace" hidden>
 			</div>
 		</div>
 	</div>
@@ -90,9 +92,13 @@
 	playa = document.getElementById("playa_text"),
 	line = document.getElementById("line"),
 	box = document.getElementById("box"),
-	rect = zoom!.getBoundingClientRect();
+	h_map = document.getElementById("Hallownest"),
+	w_map = document.getElementById("White_Palace"),
+	g_map = document.getElementById("Godhome")
+	var rect = zoom!.getBoundingClientRect();
 
-	console.log("uoi")
+	console.log(rect)
+
 
 	function get_rect()
 	{
@@ -126,6 +132,7 @@
 				pospoint = p.coords});
 		scoretxt!.innerHTML = "Score : " + score;
 		round!.innerHTML = "Round : " + Round + "/5";
+		get_rect();
 	}
 
 	function reloadmap()
@@ -199,7 +206,7 @@
 		pointX = 0;
 		pointY = 0;
 		let i = 0;
-		console.log(maptags);
+
 		while (i < 4)
 		{
 			lines.push(line.cloneNode(true));
@@ -505,18 +512,6 @@ div.nextimgs > img {
 	height: auto;
 }
 
-/*#Score {
-
-}*/
-/*#round {
-	right:20px;
-	position: absolute;
-}
-#Timer {
-	right:50%;
-	position: absolute;
-}*/
-
 span.text {
 	color: white;
 	font-size: 35px;
@@ -602,16 +597,5 @@ div#zoom > img {
 	opacity: 1.0 !important;
 	transform: scale(1.0);
 }
-/*.zoom_outer {
-	padding: 50px;
-	background-color: rgb(0, 102, 0);
-	transition: transform .2s;
-	width: 200px;
-	height: 200px;
-	margin: 0 auto;
-  }*/
-  
-  /*.zoom_outer:hover {
-	transform: scale(1.5);
- }*/
+
 </style>
