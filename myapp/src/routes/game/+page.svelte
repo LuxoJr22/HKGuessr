@@ -1,6 +1,6 @@
 <div class="feature_image" id="place">
 	<img id="point" alt="location">
-  </div>
+</div>
   <div class="top_ui" id="top">
 	<span class="text" id="Score">Score: 0</span>
 	<span class="text" id="Timer">TIMER</span>
@@ -247,6 +247,7 @@
 	loadmap();
 
 	place!.style.maxHeight = window.innerHeight + "px";
+	place!.style.maxWidth = window.innerWidth + "px";
 
 	window.onresize = function(event) {
 		place!.style.maxHeight = window.innerHeight + "px";
