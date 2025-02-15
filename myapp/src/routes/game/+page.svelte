@@ -62,8 +62,8 @@
 </div>
 
 <script lang="ts">
-    import { onMount } from "svelte";
-	onMount(() => { (async () => {
+    import { goto, beforeNavigate, afterNavigate } from '$app/navigation';
+	afterNavigate(() => { (async () => {
 	var scale = 1
 	var totalSeconds : number
 	var chrono : number
@@ -652,12 +652,15 @@ div#zoom > img {
 }
 
 .feature_image img{
+	pointer-events: none;
 	position: relative;
 	height: 100%;
     width: auto;
 	display: block;
 	margin-left: auto;
  	margin-right: auto;
+	background-color: #000000;
+	mask-image: linear-gradient(to left, transparent, black 10%, black 90%, transparent);
 }
 
 .zoom_outer {
