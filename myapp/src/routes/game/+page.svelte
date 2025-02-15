@@ -98,6 +98,7 @@
 	act_score = document.getElementById("Act_score"),
 	act_round = document.getElementById("Act_round"),
 	zoom = document.getElementById("zoom"),
+	mapping = document.getElementById("mapping"),
 	locate = document.getElementById("point") as HTMLImageElement,
 	taupe = document.getElementById("top"),
 	tag = document.getElementById("tag"),
@@ -120,7 +121,7 @@
 	k_icon = document.getElementById("King_brand"),
 	g_icon = document.getElementById("Godmaster"),
 	select = document.getElementById("select_hud")
-	var rect = zoom!.getBoundingClientRect();
+	var rect = mapping!.getBoundingClientRect();
 
 
 	function get_rect()
@@ -131,7 +132,7 @@
 		pos = {x: 0, y: 0};
 		scale = 1;
 		zoom!.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-		rect = zoom!.getBoundingClientRect();
+		rect = mapping!.getBoundingClientRect();
 	}
 
 
@@ -319,12 +320,11 @@
 
 	place!.style.maxHeight = window.innerHeight + "px";
 	place!.style.maxWidth = window.innerWidth + "px";
-	rect = zoom!.getBoundingClientRect();
 
 	window.onresize = function(event) {
 		place!.style.maxHeight = window.innerHeight + "px";
 		place!.style.maxWidth = window.innerWidth + "px";
-		rect = zoom!.getBoundingClientRect();
+		rect = mapping!.getBoundingClientRect();
 	}
 
 	function setTransform() {
