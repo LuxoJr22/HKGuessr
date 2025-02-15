@@ -188,7 +188,7 @@
 	}
 
 	window.addEventListener('load', function () {
-		mapping!.getBoundingClientRect();
+		rect = mapping!.getBoundingClientRect();
 	})
 
 	function guess_scene()
