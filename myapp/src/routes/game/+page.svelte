@@ -122,6 +122,7 @@
 	g_icon = document.getElementById("Godmaster"),
 	select = document.getElementById("select_hud")
 	var rect = mapping!.getBoundingClientRect();
+	console.log(rect);
 
 
 	function get_rect()
@@ -152,7 +153,6 @@
 				}
 				gamepoints.push(o);
 				var p = json.maps[o];
-				//locate!.src = "/assets/point/wp1.png";
 				locate!.src = p.link;
 				pospoint = p.coords;
 				pos_map = p.map});
@@ -325,6 +325,7 @@
 		place!.style.maxHeight = window.innerHeight + "px";
 		place!.style.maxWidth = window.innerWidth + "px";
 		rect = mapping!.getBoundingClientRect();
+		console.log(rect);
 	}
 
 	function setTransform() {
@@ -428,7 +429,6 @@
 			tag!.hidden = false;
 			tagpos.x = (pos.x - pointX) / scale;
 			tagpos.y = (pos.y - pointY) / scale;
-			console.log(tagpos)
 			tag!.style.left = tagpos.x + "px";
 			tag!.style.top = tagpos.y + "px";
 			setTransform();
