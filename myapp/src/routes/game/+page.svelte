@@ -122,7 +122,6 @@
 	g_icon = document.getElementById("Godmaster"),
 	select = document.getElementById("select_hud")
 	var rect = mapping!.getBoundingClientRect();
-	console.log(rect);
 
 
 	function get_rect()
@@ -187,6 +186,10 @@
 		box!.style.display = "none"
 		get_rect();
 	}
+
+	window.addEventListener('load', function () {
+		mapping!.getBoundingClientRect();
+	})
 
 	function guess_scene()
 	{
@@ -325,7 +328,6 @@
 		place!.style.maxHeight = window.innerHeight + "px";
 		place!.style.maxWidth = window.innerWidth + "px";
 		rect = mapping!.getBoundingClientRect();
-		console.log(rect);
 	}
 
 	function setTransform() {
