@@ -36,7 +36,7 @@
 			</svg>
 			<div id="zoom">
 				<img src="/assets/map.png" alt="zoom" id="Hallownest">
-				<img src="/assets/Godhome_Mapa.webp" alt="zoom" id="Godhome" hidden>
+				<img src="/assets/Godhome_Mapa.png" alt="zoom" id="Godhome" hidden>
 				<img src="/assets/White_Palace_Map_Clean.png" alt="zoom" id="White_Palace" hidden>
 			</div>
 		</div>
@@ -146,6 +146,7 @@
 			.then((json) => {
 				var i = json.maps.length;
 				var o = Math.floor(Math.random() * i);
+				//var o = 59;
 				while (gamepoints.includes(o))
 				{
 					o = (o + 1) % i;
@@ -195,6 +196,7 @@
 	{
 		if (pos_map != act_map)
 		{
+			console.log("oui")
 			tag!.hidden = true;
 			tagpos = {x: 0, y: 0};
 		}
@@ -275,7 +277,7 @@
 		pointX = 0;
 		pointY = 0;
 		let i = 0;
-
+		show_map("Hallownest")
 		while (i < 4)
 		{
 			lines.push(line.cloneNode(true));
@@ -293,19 +295,19 @@
 			lines[i].setAttribute('x2', mappoints[i].x.toString());
 			lines[i].setAttribute('y2', mappoints[i].y.toString());
 			document.getElementById("box")!.appendChild(lines[i]);
-			if (maptags[i].x == 0 && maptags[i].y )
+			tags[i].hidden = false;
+			if (maptags[i].x == 0 && maptags[i].y == 0)
 			{
 				tags[i].hidden = true;
 				lines[i].style.display = "none";
 			}
-			else if (maps[i] != "Hallownest")
+			if (maps[i] != "Hallownest")
 			{
 				tags[i].hidden = true;
 				points[i].hidden = true;
 				lines[i].style.display = "none";
 			}
-			else
-				tags[i].hidden = false;
+				
 			i ++;
 		}
 		setTransform();
@@ -404,6 +406,8 @@
 				dist = 1000;
 			scoring = Math.round(1000 - dist);
 		}
+		if (act_map != pos_map)
+			scoring = 0;
 		act_score!.innerHTML = "Score : " + scoring;
 		act_round!.innerHTML = "Round : " + Round + "/5";
 		score += scoring;
