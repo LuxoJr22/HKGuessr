@@ -89,7 +89,7 @@
 	var act_map = "Hallownest"
 	var pos_map = ""
 	var maps : string[] = []
-	
+
 	
 	
 	var bot = document.getElementById("guess"),
