@@ -10,10 +10,15 @@
 		<a class="btn text" id="launch" on:click={() => myGoto("/game")}>Play</a>
 		<img src="/assets/seli.png" alt="Play btn">
 	</div>
+	<div class="selection">
+		<img src="/assets/sel.png" alt="Play btn">
+		<a class="btn text" id="launch" on:click={() => myGoto("/audio_guess")}>Guess Audio</a>
+		<img src="/assets/seli.png" alt="Play btn">
+	</div>
 </div>
 
 <script lang="ts">
-
+	
 	function myGoto(href : string){
 		window.location.href = href
 	}

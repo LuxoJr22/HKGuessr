@@ -62,7 +62,7 @@
 </div>
 
 <script lang="ts">
-    import { goto, beforeNavigate, afterNavigate } from '$app/navigation';
+    import { afterNavigate } from '$app/navigation';
 	afterNavigate(() => { (async () => {
 	var scale = 1
 	var totalSeconds : number
