@@ -1,11 +1,11 @@
 {
     "mob" : [
-        {"name": "Grey Mourner", "img":"../../assets/icon/Grey_Mourner2.webp", "audio":"../../assets/audio/Grey_Mourner_talk_02.wav"},
-        {"name": "Tiso", "img":"../../assets/icon/Tiso.webp", "audio":"../../assets/audio/Tiso_talk_06.wav"},
-        {"name": "Jiji", "img":"../../assets/icon/Jiji.webp", "audio":"../../assets/audio/Jiji_talk_04.wav"},
-        {"name": "Grubfather", "img":"../../assets/icon/Grubfather.webp", "audio":"../../assets/audio/Grub_king_cheer_03.wav"},
-        {"name": "Mr Mushroom", "img":"../../assets/icon/MrMushroom.webp", "audio":"../../assets/audio/Mr_Mush_talk_02.wav"},
-        {"name": "Quirrel", "img":"../../assets/icon/Quirrel.webp", "audio":"../../assets/audio/Quirrel_03.wav"},
-        {"name": "Hunter", "img":"../../assets/icon/Hunter.webp", "audio":"../../assets/audio/Hunter_journal_02.wav"}
+        {"name": "Grey Mourner", "img":"../../assets/icons/Grey_Mourner2.webp", "audio":"../../assets/audio/Grey_Mourner_talk_02.wav"},
+        {"name": "Tiso", "img":"../../assets/icons/Tiso.webp", "audio":"../../assets/audio/Tiso_talk_06.wav"},
+        {"name": "Jiji", "img":"../../assets/icons/Jiji.webp", "audio":"../../assets/audio/Jiji_talk_04.wav"},
+        {"name": "Grubfather", "img":"../../assets/icons/Grubfather.webp", "audio":"../../assets/audio/Grub_king_cheer_03.wav"},
+        {"name": "Mr Mushroom", "img":"../../assets/icons/MrMushroom.webp", "audio":"../../assets/audio/Mr_Mush_talk_02.wav"},
+        {"name": "Quirrel", "img":"../../assets/icons/Quirrel.webp", "audio":"../../assets/audio/Quirrel_03.wav"},
+        {"name": "Hunter", "img":"../../assets/icons/Hunter.webp", "audio":"../../assets/audio/Hunter_journal_02.wav"}
     ]
 }
