@@ -7,7 +7,7 @@
             <source src="" type="audio/mpeg" id="source">
           Your browser does not support the audio element.
         </audio>
-        <input type="text" placeholder="Type name ...">
+        <input type="text" placeholder="Type name ..." id="inp">
     </div>
 </div>
 
@@ -19,6 +19,7 @@
         var i;
         var source = document.getElementById("source") as HTMLSourceElement
         var audio = document.getElementById("audio") as HTMLAudioElement
+        var input = document.getElementById("inp") as HTMLInputElement
 
         async function loadmap()
         {
@@ -29,6 +30,11 @@
         }
         loadmap()
         
+        console.log(input.value)
+
+        input.addEventListener('input', function (e) {
+            console.log(input.value)
+        });
         
     })();
     });
